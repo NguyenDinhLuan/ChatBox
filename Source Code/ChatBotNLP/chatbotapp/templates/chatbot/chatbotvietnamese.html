@@ -1,0 +1,135 @@
+{% extends "./common/layout.html" %}
+{% load mytags %}
+{% load static %}
+
+{% block body %}
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="frame">
+      <div id="sidepanel">
+        <div id="profile">
+          <div class="wrap">
+            <img id="profile-img" src="{% static 'images/chat.png' %}" class="online" alt="" />
+            {% if user.is_authenticated %}
+            <p>
+              {{user.get_full_name|upper}}
+            </p>
+            {% endif %}
+            <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
+            <div id="status-options">
+              <ul>
+                <li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>
+                <li id="status-away"><span class="status-circle"></span> <p>Away</p></li>
+                <li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>
+                <li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>
+              </ul>
+            </div>
+            <div id="expanded">
+            {% if user.is_authenticated %}
+              <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
+              <input name="twitter" type="text" value="{{user.email}}" />
+              <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
+              <input name="twitter" type="text" value="{{user.get_full_name|captitalize}}" />
+              <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
+              <input name="twitter" type="text" value="{{user.get_full_name|removespace}}" />
+            {% endif %}
+            </div>
+          </div>
+        </div>
+        <div id="search">
+          <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+          <input type="text" placeholder="Tìm kiếm liên hệ..." />
+        </div>
+        <div id="contacts">
+          <ul>
+              <li class="contact active">
+                <div class="wrap">
+                  <span class="contact-status online"></span>
+                  <img src="{% static 'images/mixi.jpg' %}" alt="" />
+                  <div class="meta">
+                    <p class="name">MIXI BOT</p>
+                    <p class="preview">Chúc bạn một ngày mới tốt lành</p>
+                  </div>
+                </div>
+              </li>
+            
+              <li class="contact">
+                <div class="wrap">
+                  <span class="contact-status"></span>
+                  <img src="{% static 'images/chat.png' %}" alt="" />
+                  <div class="meta">
+                    <p class="name">Nguyen Minh Thanh - 51800727</p>
+                    <p class="preview"><span>You:</span> Nice to meet you.</p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="contact">
+                <div class="wrap">
+                  <span class="contact-status"></span>
+                  <img src="{% static 'images/chat.png' %}" alt="" />
+                  <div class="meta">
+                    <p class="name">Nguyen Dinh Luan - 51800994</p>
+                    <p class="preview"><span>You:</span> Have a nice day</p>
+                  </div>
+                </div>
+              </li>
+
+              <li class="contact">
+                <div class="wrap">
+                  <span class="contact-status"></span>
+                  <img src="{% static 'images/chat.png' %}" alt="" />
+                  <div class="meta">
+                    <p class="name">Nguyen Dong Huy - 51800682</p>
+                    <p class="preview"><span>You:</span>Good Job</p>
+                  </div>
+                </div>
+              </li>
+          </ul>
+        </div>
+        <div style = "text-align:center"> <a href="logout/">Đăng xuất</a> </div>
+      </div>
+      <div class="content">
+        <div class="contact-profile">
+          <img src="{% static 'images/mixi.jpg' %}" alt="" />
+          <p>MIXI BOT</p>
+        </div>
+        <div class="messages">
+          <ul>
+
+            <li class="replies">
+              <img src="{% static 'images/mixi.jpg' %}" alt="" />
+              <p>Xin chào,
+                {% if user.is_authenticated %}
+                  {{user.first_name}}
+                {% endif %}
+              </p>
+            </li>
+
+            <li class="replies">
+              <img src="{% static 'images/mixi.jpg' %}" alt="" />
+              <p>Tôi là sản phẩm được dựa trên ý tưởng của MixiGaming</p>
+            </li>
+
+            <li class="replies">
+              <img src="{% static 'images/mixi.jpg' %}" alt="" />
+              <p>Rất vui khi được gặp bạn !</p>
+            </li>
+
+          </ul>
+        </div>
+        <div class="message-input">
+          <div class="wrap">
+          <input type="text" placeholder="Nhập tin nhắn của bạn..." style="font-weight: bold; width: 96.7%"/>
+          <button class="submit" id="send"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  {% include './common/chatbotvietnamesejs.html' %}
+
+{% endblock %}
+
+<!-- Reference: https://bootsnipp.com/snippets/exR5v -->

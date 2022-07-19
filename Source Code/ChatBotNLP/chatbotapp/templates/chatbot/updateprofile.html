@@ -1,0 +1,57 @@
+{% extends "./common/updatelayout.html" %}
+{% load mytags %}
+{% load static %}
+
+{% block body %}
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <h3>CẬP NHẬT THÔNG TIN CÁ NHÂN</h3>
+        <h4 style="text-align:center; color=green;"> Vui lòng cập nhật thông tin cá nhân để vào màn hình ChatBot </h4>
+        <h5 style="text-align:center; color=white;"> Nếu đã cập nhật vui lòng nhấn vào liên kết để đến màn hình chính <a href='/' alt='' "> Chuyển tiếp </a> </h5>
+        <div class="wpcf7" id="wpcf7-f156-p143-o1 formwrap">
+            <form action="/updateInfo" method="post" class="wpcf7-form">
+                {% csrf_token %}
+                <div style="display: none;">
+                    <input type="hidden" name="_wpcf7" value="156">
+                    <input type="hidden" name="_wpcf7_version" value="3.7.2">
+                    <input type="hidden" name="_wpcf7_locale" value="en_US">
+                    <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f156-p143-o1">
+                    <input type="hidden" name="_wpnonce" value="d1da331d93">
+                </div>
+                <p>
+                <span class="wpcf7-form-control-wrap Name">
+                    <input type="text" name="username" value="" size="40" class="nameinput wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Username">
+                </span>
+                <span class="wpcf7-form-control-wrap Name">
+                    <input type="text" name="holot" value="" size="40" class="nameinput wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Họ lót">
+                </span>
+                <span class="wpcf7-form-control-wrap Name">
+                    <input type="text" name="ten" value="" size="40" class="nameinput wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Tên">
+                </span>
+                <span class="wpcf7-form-control-wrap Email">
+                    <input type="email" name="email"  size="40" class="emailinput wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="Email">
+                </span>
+                <span class="wpcf7-form-control-wrap Subject flat">
+                    <select name="gioitinh" class="indent wpcf7-form-control wpcf7-select wpcf7-validates-as-required" aria-required="true" aria-invalid="false">
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
+                    </select>
+                </span>
+                <span class="wpcf7-form-control-wrap Name">
+                    <input type="text" name="diachi" value="" size="40" class="nameinput wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Địa chỉ">
+                </span>
+                <div class="wrapper">
+                    <input type="submit" value="CẬP NHẬT" class="wpcf7-form-control wpcf7-submit btn">
+                </div>
+                <img class="ajax-loader" src="http://www.jordancundiff.com/wp-content/plugins/contact-form-7/images/ajax-loader.gif" alt="Sending ..." style="visibility: hidden;">
+            </p>
+            <div class="wpcf7-response-output wpcf7-display-none">
+            </div>
+        </form>
+        </div>
+        <script src="" async defer></script>
+
+{% endblock %}
+
+<!-- Reference: https://codepen.io/andstudio/pen/jeDty -->

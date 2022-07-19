@@ -1,0 +1,107 @@
+</script>
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'>
+</script>
+<script >
+  $(".messages").animate({ scrollTop: $(document).height() }, "fast");
+
+  $("#profile-img").click(function() {
+    $("#status-options").toggleClass("active");
+  });
+
+  $(".expand-button").click(function() {
+    $("#profile").toggleClass("expanded");
+    $("#contacts").toggleClass("expanded");
+  });
+
+  $("#status-options ul li").click(function() {
+    $("#profile-img").removeClass();
+    $("#status-online").removeClass("active");
+    $("#status-away").removeClass("active");
+    $("#status-busy").removeClass("active");
+    $("#status-offline").removeClass("active");
+    $(this).addClass("active");
+    
+    if($("#status-online").hasClass("active")) {
+      $("#profile-img").addClass("online");
+    } else if ($("#status-away").hasClass("active")) {
+      $("#profile-img").addClass("away");
+    } else if ($("#status-busy").hasClass("active")) {
+      $("#profile-img").addClass("busy");
+    } else if ($("#status-offline").hasClass("active")) {
+      $("#profile-img").addClass("offline");
+    } else {
+      $("#profile-img").removeClass();
+    };
+    
+    $("#status-options").removeClass("active");
+  });
+
+  // Hàm hiển thị tin nhắn bên phía người gửi
+  function newMessage() {
+    message = $(".message-input input").val();
+    if($.trim(message) == '') {
+      return false;
+    }
+    $('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+    $('.message-input input').val(null);
+    $('.contact.active .preview').html('<span>You: </span>' + message);
+    $(".messages").animate({ scrollTop: $(document).height() + 3000 }, "slow");
+  };
+
+  // Hàm bắt sự kiện gửi tin nhắn của chương trình
+  $(window).on('keydown', function(e) {
+    if (e.which == 13) { //Nếu nhấn vào Enter
+      message = $(".message-input input").val(); // Lấy ra giá trị trong trường tin nhắn
+      console.log(message) //Hiển thị ra màn hình console
+      $.ajax({ //Định nghĩa AJAX để gửi dữ liệu đến phía máy chủ
+          url:'/api/'+ message, // Định nghĩa đường dẫn
+          method:'post', // Định nghĩa phương thức
+          datatype:'json', // Định nghĩa kiểu dữ liệU
+          data:{csrfmiddlewaretoken: '{{ csrf_token }}'}, //Định nghĩa csrf token
+          success: function (data){ //Nếu nhận dữ liệu được trả về thành công
+            console.log(data.id) // Hiển thị tin nhắn được trả về
+            let message = data.id //Gán biến message là giá trị tin nhắn trả về
+            
+            // Thực hiện thêm tin nhắn vừa gửi vào bên phải giao diện
+            newMessage()
+            
+            // Hiển thị tin nhắn được trả về từ phía máy chủ và hiển thị bên phía trái mành hình (replies)
+
+            $('<li class="replies"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+            $('.message-input input').val(null);
+            $('.contact.active .preview').html('<span>You: </span>' + message);
+            $(".messages").animate({ scrollTop: $(document).height() + 3000 }, "fast");
+          },
+          error: function (data){
+          },
+      });
+      return false;
+    }
+  });
+  $('.submit').click(function(){ //Nếu nhấn vào nút Send bên phía phải của trường nhập tin nhắn
+          message = $(".message-input input").val(); // Lấy ra giá trị của trường input tin nhắn
+          console.log(message) // Hiển thị console
+          $.ajax({ // Cài đặt các tham số cho quá trình AJAX gửi dữ liệu đến máy chủ
+              url:'/api/'+ message,
+              method:'post',
+              datatype:'json',
+              data:{csrfmiddlewaretoken: '{{ csrf_token }}'},
+              success: function (data){ //Nếu nhận dữ liệu thành công
+                console.log(message)
+                let message = data.id // Gán giá trị tin nhắn trả về
+
+                newMessage() // Thêm tin nhắn vừa gửi vào màn hình
+
+                // Hiển thị tin nhắn được trả về từ phía máy chủ
+                $('<li class="replies"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+                $('.message-input input').val(null);
+                $('.contact.active .preview').html('<span>You: </span>' + message);
+                $(".messages").animate({ scrollTop: $(document).height() }, "slow");
+              },
+              error: function (data){
+              },
+          });
+      });
+  </script>
+
+<script src="" async defer></script>

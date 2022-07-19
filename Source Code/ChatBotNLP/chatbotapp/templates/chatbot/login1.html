@@ -1,0 +1,36 @@
+{% extends "./common/loginlayout.html" %}
+{% load mytags %}
+{% load static %}
+
+{% block body %}
+  <body translate="no" >  
+    <body id="particles-js"></body>
+      <div class="animated bounceInDown">
+        <div class="container">
+          <span class="error animated tada" id="msg"></span>
+          <form name="form1" method="post" class="box" onsubmit="return checkStuff()">
+            {% csrf_token %}
+            <h4>Chat Bot Project</h4>
+            <h5>Đăng nhập</h5>
+            <input type="text" name="name" id="name" value="{{name}}" placeholder="Tên đăng nhập" autocomplete="off">
+            <i class="typcn typcn-eye" id="eye"></i>
+            <input type="password" name="pass" id="pass" value="{{pass}}" placeholder="Mật khẩu" autocomplete="off">
+            <button type="submit" class="btn1" onclick="myFunction1()">Đăng nhập</button>
+          </form>
+          <a href="/signup" class="dnthave">
+              Đăng Ký
+          </a>     
+        </div> 
+        <div class="footer">
+          {% if msg %}
+            <div style='color:red;font-size: 20px;'>{{msg}}</div>
+          {% endif %}
+        </div>
+      </div>
+  </body>
+
+  {% include './common/loginjs.html' %}
+
+{% endblock %}
+
+<!-- Reference: https://codepen.io/lordgamer2354/pen/NEroLg -->
